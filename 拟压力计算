@@ -1,0 +1,13 @@
+function mp=ni_p(p)
+  Z=0.0002*p.^2-0.00657*p+1.0264;  %以下拟压力计算部分
+  miu=0.02; %这里简化了miu
+  sizep=max(size(p));
+  mp=ones(sizep,1);
+  funmp=2.*p./Z/miu;
+  gradp=gradient(p);
+  mp0=gradp.*funmp;
+    for i=1:sizep
+        mp(i)=sum(mp0(1:i));
+    end  
+  %plot(p,mp)
+end
